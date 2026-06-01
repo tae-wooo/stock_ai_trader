@@ -4,6 +4,9 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
+
 
 def run_command(command: list[str]):
     print()
@@ -19,6 +22,19 @@ def run_command(command: list[str]):
         raise RuntimeError(f"명령어 실행 실패: {' '.join(command)}")
 
 
+def get_stock_master_count() -> int:
+    from app.database.connection import get_db
+    from app.services.stock_master_service import StockMasterService
+
+    db = get_db()
+
+    try:
+        stock_master_service = StockMasterService(db)
+        return len(stock_master_service.get_all())
+    finally:
+        db.close()
+
+
 def main():
     print()
     print("Docker 자동 실행 시작")
@@ -27,12 +43,7 @@ def main():
     run_command([sys.executable, "scripts/init_db.py"])
 
     try:
-        from app.database.connection import get_db
-        from app.services.stock_master_service import StockMasterService
-
-        db = get_db()
-        stock_master_service = StockMasterService(db)
-        stock_master_count = len(stock_master_service.get_all())
+        stock_master_count = get_stock_master_count()
 
         print()
         print("종목 마스터 상태 확인")

@@ -1,32 +1,8 @@
-# Python
-.venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-
-# Env / Secrets
 .env
-.env.*
-!.env.example
-
-# Database
+.venv/
 *.db
 *.sqlite
 *.sqlite3
-
-# Raw data / Generated reports
-data/raw/
 reports/
 logs/
-
-# OS / Editor
-.DS_Store
-.vscode/
-.idea/
-
-# Cache
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+data/
