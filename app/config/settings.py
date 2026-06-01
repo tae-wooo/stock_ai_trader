@@ -18,6 +18,6 @@ class Settings:
     KIS_BASE_URL = os.getenv("KIS_BASE_URL", "https://openapi.koreainvestment.com:9443")
 
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 settings = Settings()

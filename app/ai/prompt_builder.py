@@ -1,3 +1,6 @@
+import json
+
+
 def build_stock_analysis_prompt(
     stock_name: str,
     stock_code: str,
@@ -18,6 +21,8 @@ def build_stock_analysis_prompt(
     news_negative_matches: list[dict],
     disclosure_positive_matches: list[dict],
     disclosure_negative_matches: list[dict],
+    theme_keywords: dict | None = None,
+    trade_rules: dict | None = None,
 ) -> str:
     def value_or_unknown(value, suffix=""):
         if value is None:
@@ -46,6 +51,12 @@ def build_stock_analysis_prompt(
 
         return "\n".join(lines)
 
+    def config_to_text(config: dict | None, empty_message: str) -> str:
+        if not config:
+            return empty_message
+
+        return json.dumps(config, ensure_ascii=False, indent=2)
+
     price_reason_text = list_to_bullets(price_reasons, "특별한 가격 신호 없음")
     news_text = list_to_bullets(news_titles[:10], "뉴스 데이터 없음")
     disclosure_text = list_to_bullets(disclosure_titles[:10], "공시 데이터 없음")
@@ -54,6 +65,16 @@ def build_stock_analysis_prompt(
     news_negative_text = matches_to_bullets(news_negative_matches)
     disclosure_positive_text = matches_to_bullets(disclosure_positive_matches)
     disclosure_negative_text = matches_to_bullets(disclosure_negative_matches)
+
+    theme_keywords_text = config_to_text(
+        theme_keywords,
+        "테마 키워드 설정 없음"
+    )
+
+    trade_rules_text = config_to_text(
+        trade_rules,
+        "매매 기준 설정 없음"
+    )
 
     prompt = f"""
 너는 신중한 주식 분석 보조 AI다.
@@ -66,6 +87,10 @@ def build_stock_analysis_prompt(
 5. 투자 의견은 참고용이며, 리스크를 반드시 같이 설명해라.
 6. 단기 관점과 중장기 관점을 나눠서 설명해라.
 7. 점수가 높아도 위험 요소가 있으면 반드시 언급해라.
+8. 매매 기준은 단정하지 말고 참고용 범위로 제안해라.
+9. 익절/손절 기준은 고정값 하나가 아니라 범위로 제안해라.
+10. 단기 과열이면 신규 진입보다 관망 또는 눌림목 기준을 우선 제안해라.
+11. 위험 공시나 부정 키워드가 있으면 가격 흐름보다 리스크를 우선 평가해라.
 
 [종목 정보]
 - 종목명: {stock_name}
@@ -115,6 +140,12 @@ def build_stock_analysis_prompt(
 - 35점 이상: 주의 필요
 - 35점 미만: 위험
 
+[테마 키워드 설정]
+{theme_keywords_text}
+
+[매매 기준 설정]
+{trade_rules_text}
+
 아래 형식으로 분석 리포트를 작성해라.
 
 1. 한 줄 요약
@@ -124,8 +155,19 @@ def build_stock_analysis_prompt(
 5. 단기 관점
 6. 중장기 관점
 7. 초보자가 조심해야 할 점
-8. 최종 판단: 강한 관심 후보 / 관심 후보 / 중립 / 주의 필요 / 위험 / 데이터 부족 중 하나
-9. 확신도: 낮음 / 보통 / 높음
+8. 종목 유형 판단
+   - LARGE_CAP / THEME_SMALL_MID / OVERHEATED / EVENT_DRIVEN / RISK_ALERT 중 가장 가까운 유형을 골라라.
+   - 왜 그렇게 판단했는지 설명해라.
+9. 매매 기준 제안
+   - 신규 진입 기준:
+   - 1차 익절 기준:
+   - 2차 익절 기준:
+   - 손절 기준:
+   - 트레일링 스탑 기준:
+   - 관망해야 하는 조건:
+   - 이 기준을 적용할 때 주의할 점:
+10. 최종 판단: 강한 관심 후보 / 관심 후보 / 중립 / 주의 필요 / 위험 / 데이터 부족 중 하나
+11. 확신도: 낮음 / 보통 / 높음
 """.strip()
 
     return prompt

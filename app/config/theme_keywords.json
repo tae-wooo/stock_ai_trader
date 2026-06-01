@@ -1,0 +1,236 @@
+{
+  "theme_keywords": {
+    "AI_SEMICONDUCTOR": {
+      "description": "AI 반도체, 메모리, 패키징, 고성능 컴퓨팅 관련 테마",
+      "keywords": [
+        "HBM",
+        "CXL",
+        "NPU",
+        "온디바이스",
+        "온디바이스 AI",
+        "유리기판",
+        "첨단 패키징",
+        "테스트소켓",
+        "AI 반도체",
+        "파운드리",
+        "AI 메모리"
+      ],
+      "avoid_keywords": [
+        "AI",
+        "반도체",
+        "칩"
+      ],
+      "target_groups": [
+        "반도체 장비",
+        "메모리",
+        "팹리스",
+        "패키징",
+        "기판",
+        "테스트 부품"
+      ]
+    },
+    "DATACENTER_CLOUD_POWER": {
+      "description": "데이터센터, 클라우드, 전력 인프라, 냉각 관련 테마",
+      "keywords": [
+        "액침냉각",
+        "데이터센터",
+        "하이퍼스케일",
+        "서버 증설",
+        "초고압 변압기",
+        "전력망",
+        "ESS",
+        "스마트그리드",
+        "전력기기",
+        "변압기"
+      ],
+      "avoid_keywords": [
+        "클라우드",
+        "서버",
+        "에너지",
+        "전력"
+      ],
+      "target_groups": [
+        "데이터센터 인프라",
+        "냉각 시스템",
+        "전력기기",
+        "전선",
+        "변압기",
+        "ESS"
+      ]
+    },
+    "ROBOT_AUTOMATION": {
+      "description": "로봇, 자동화, 물류로봇 관련 테마",
+      "keywords": [
+        "협동로봇",
+        "감속기",
+        "물류로봇",
+        "AMR",
+        "산업용 로봇",
+        "로봇 부품",
+        "로봇 자동화"
+      ],
+      "avoid_keywords": [
+        "로봇",
+        "자동화"
+      ],
+      "target_groups": [
+        "로봇 완제품",
+        "감속기",
+        "제어기",
+        "센서",
+        "물류 자동화"
+      ]
+    },
+    "DEFENSE_NUCLEAR": {
+      "description": "방산, 원전, 국가 단위 수주 관련 테마",
+      "keywords": [
+        "K방산",
+        "천궁",
+        "자주포",
+        "방산 수출",
+        "MRO",
+        "SMR",
+        "체코 원전",
+        "팀코리아",
+        "원전 수주",
+        "원전 설비"
+      ],
+      "avoid_keywords": [
+        "국방",
+        "무기",
+        "원전",
+        "원자력"
+      ],
+      "target_groups": [
+        "방산 체계업체",
+        "항공우주",
+        "정비 부품",
+        "원전 설비",
+        "발전 기자재"
+      ]
+    },
+    "QUANTUM_SECURITY": {
+      "description": "양자컴퓨터, 양자보안, 차세대 암호 관련 테마",
+      "keywords": [
+        "양자암호",
+        "양자내성암호",
+        "PQC",
+        "양자통신",
+        "양자보안"
+      ],
+      "avoid_keywords": [
+        "양자",
+        "양자컴퓨터"
+      ],
+      "target_groups": [
+        "보안",
+        "통신",
+        "암호 기술",
+        "네트워크 장비"
+      ]
+    }
+  },
+  "event_keywords": {
+    "positive": [
+      "단독",
+      "공급계약",
+      "수주",
+      "수주공시",
+      "어닝 서프라이즈",
+      "흑자전환",
+      "실적 개선",
+      "자사주 소각",
+      "자기주식취득",
+      "무상증자",
+      "M&A",
+      "인수",
+      "증설",
+      "투자 확대",
+      "정부 지원",
+      "기술수출",
+      "FDA 승인"
+    ],
+    "negative": [
+      "주주배정",
+      "유상증자",
+      "전환사채",
+      "CB",
+      "신주인수권",
+      "BW",
+      "횡령",
+      "배임",
+      "거래정지",
+      "관리종목",
+      "상장폐지",
+      "불성실공시",
+      "하한가",
+      "어닝 쇼크",
+      "실적 부진",
+      "영업손실",
+      "블록딜",
+      "감사의견"
+    ]
+  },
+  "priority": {
+    "daily": [
+      "HBM",
+      "CXL",
+      "NPU",
+      "온디바이스 AI",
+      "유리기판",
+      "첨단 패키징",
+      "테스트소켓",
+      "초고압 변압기",
+      "액침냉각",
+      "데이터센터",
+      "하이퍼스케일",
+      "서버 증설"
+    ],
+    "weekly": [
+      "K방산",
+      "SMR",
+      "체코 원전",
+      "협동로봇",
+      "감속기",
+      "양자암호",
+      "하이퍼스케일",
+      "ESS"
+    ]
+  },
+  "matching_rules": {
+    "min_stock_name_length": 3,
+    "ignore_stock_names": [
+      "SK",
+      "DB",
+      "대상",
+      "리드",
+      "레이",
+      "디바이스",
+      "이닉스",
+      "한화",
+      "두산",
+      "효성",
+      "LS",
+      "LG",
+      "드래곤플라이",
+      "하이브"
+    ],
+    "title_match_score": 25,
+    "description_match_score": 5,
+    "news_count_score": 10,
+    "theme_keyword_score": 8,
+    "positive_keyword_score": 20,
+    "negative_keyword_penalty": 50,
+    "min_candidate_score": 50,
+    "auto_register_score": 80,
+    "auto_register_min_news_count": 2,
+    "auto_register_min_theme_count": 2,
+    "auto_delete_score_below": 40,
+    "auto_delete_after_days": 7,
+    "max_auto_register_per_run": 5,
+    "max_ai_analysis_per_run": 3,
+    "max_stock_price_for_ai_analysis": 50000,
+    "skip_ai_analysis_when_price_unknown": true,
+    "price_filter_pass_bonus": 15
+  }
+}

@@ -97,3 +97,46 @@ class AiReport(Base):
     opinion = Column(String(30), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class StockMaster(Base):
+    __tablename__ = "stock_master"
+
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String(20), unique=True, nullable=False)
+    name = Column(String(100), nullable=False)
+    market = Column(String(30), nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class CandidateStock(Base):
+    __tablename__ = "candidate_stocks"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    stock_code = Column(String(20), nullable=False)
+    stock_name = Column(String(100), nullable=False)
+    market = Column(String(30), nullable=True)
+
+    detected_keywords = Column(Text, nullable=True)
+    positive_keywords = Column(Text, nullable=True)
+    negative_keywords = Column(Text, nullable=True)
+    news_titles = Column(Text, nullable=True)
+
+    news_count = Column(Integer, default=0)
+    theme_keyword_count = Column(Integer, default=0)
+    positive_keyword_count = Column(Integer, default=0)
+    negative_keyword_count = Column(Integer, default=0)
+
+    score = Column(Integer, default=0)
+    status = Column(String(30), default="CANDIDATE")
+
+    first_detected_at = Column(DateTime, default=datetime.utcnow)
+    last_detected_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("stock_code", name="uq_candidate_stock_code"),
+    )
