@@ -1,0 +1,17 @@
+services:
+  stock-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock_ai_trader
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=sqlite:////app/data/stock_ai_trader.db
+      - TZ=Asia/Seoul
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    command: python scripts/docker_run_pipeline.py
+    restart: "no"

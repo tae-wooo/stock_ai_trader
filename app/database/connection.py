@@ -4,12 +4,18 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from app.config.settings import settings
 
 
+DATABASE_URL = settings.DATABASE_URL
+
+connect_args = {}
+
+if DATABASE_URL.startswith("sqlite"):
+    connect_args = {
+        "check_same_thread": False,
+    }
+
 engine = create_engine(
-    settings.DATABASE_URL,
-    echo=False,
-    connect_args={"check_same_thread": False}
-    if settings.DATABASE_URL.startswith("sqlite")
-    else {},
+    DATABASE_URL,
+    connect_args=connect_args,
 )
 
 SessionLocal = sessionmaker(
@@ -22,8 +28,4 @@ Base = declarative_base()
 
 
 def get_db():
-    db = SessionLocal()
-    try:
-        return db
-    finally:
-        db.close()
+    return SessionLocal()

@@ -1,23 +1,34 @@
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
-load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+load_dotenv(BASE_DIR / ".env")
 
 
 class Settings:
-    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///stock_ai.db")
+    NAVER_CLIENT_ID: str | None = os.getenv("NAVER_CLIENT_ID")
+    NAVER_CLIENT_SECRET: str | None = os.getenv("NAVER_CLIENT_SECRET")
 
-    NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID")
-    NAVER_CLIENT_SECRET = os.getenv("NAVER_CLIENT_SECRET")
+    DART_API_KEY: str | None = os.getenv("DART_API_KEY")
 
-    DART_API_KEY = os.getenv("DART_API_KEY")
+    OPENAI_API_KEY: str | None = os.getenv("OPENAI_API_KEY")
+    GEMINI_API_KEY: str | None = os.getenv("GEMINI_API_KEY")
 
-    KIS_APP_KEY = os.getenv("KIS_APP_KEY")
-    KIS_APP_SECRET = os.getenv("KIS_APP_SECRET")
-    KIS_ACCOUNT_NO = os.getenv("KIS_ACCOUNT_NO")
-    KIS_BASE_URL = os.getenv("KIS_BASE_URL", "https://openapi.koreainvestment.com:9443")
+    DISCORD_WEBHOOK_URL: str | None = os.getenv("DISCORD_WEBHOOK_URL")
 
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    KRX_ID: str | None = os.getenv("KRX_ID")
+    KRX_PW: str | None = os.getenv("KRX_PW")
+
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///data/stock_ai_trader.db",
+    )
+
+    TZ: str = os.getenv("TZ", "Asia/Seoul")
+
 
 settings = Settings()
