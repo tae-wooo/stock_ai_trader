@@ -14,6 +14,7 @@ DATABASE_URL = settings.DATABASE_URL
 def _build_connect_args(database_url: str) -> dict:
     if database_url.startswith("sqlite"):
         return {"check_same_thread": False}
+
     return {}
 
 

@@ -44,12 +44,6 @@ class Settings:
     def validate_required(self, keys: Iterable[str]) -> None:
         """
         실행 전에 필요한 환경변수가 있는지 검증한다.
-
-        예:
-            settings.validate_required([
-                "NAVER_CLIENT_ID",
-                "NAVER_CLIENT_SECRET",
-            ])
         """
         missing: list[str] = []
 
